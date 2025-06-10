@@ -9,7 +9,7 @@ import re
 class DriverCreationForm(UserCreationForm):
     license_number = forms.CharField(
         max_length=8,
-        required=False,
+        required=True,
         help_text="Required format: 3 uppercase letters, "
                   "5 numbers (e.g. ABC12345)"
     )
@@ -18,9 +18,9 @@ class DriverCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Driver
-        fields = UserCreationForm.Meta.fields + ("first_name",
-                                                 "last_name",
-                                                 "license_number",)
+        fields = UserCreationForm.Meta.fields + (
+            "first_name", "last_name", "license_number",
+        )
 
     def clean_license_number(self):
         license_number = self.cleaned_data.get("license_number")
